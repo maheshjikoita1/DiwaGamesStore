@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DiwaGamesStore | Play & Discover</title>
+<meta name="description" content="DiwaGamesStore - discover games and visit their official pages.">
+<style>
+:root{--bg:#070910;--panel:#101421;--panel2:#151a29;--text:#f4f6ff;--muted:#9ba4ba;--accent:#7b5cff;--accent2:#a18cff;--line:#252b3c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#21194b 0,#070910 38%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+a{text-decoration:none;color:inherit}.nav{height:70px;border-bottom:1px solid var(--line);background:#080b12dd;backdrop-filter:blur(14px);position:sticky;top:0;z-index:20}
+.navin{max-width:1180px;margin:auto;height:100%;padding:0 20px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:22px;font-weight:900}.logo b{color:var(--accent)}
+nav a{margin-left:22px;color:#cdd2e0;font-size:14px}.hero{max-width:1180px;margin:auto;padding:78px 20px 45px;text-align:center}.pill{display:inline-block;border:1px solid #39345c;background:#17132d;color:#b8aaff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700}
+h1{font-size:clamp(40px,7vw,74px);line-height:.98;margin:18px 0 15px}h1 span{color:var(--accent2)}.hero p{max-width:650px;margin:auto;color:var(--muted)}
+.search{max-width:680px;margin:28px auto 0;display:flex;gap:10px}.search input{flex:1;padding:15px 18px;background:#111521;border:1px solid #30374b;color:white;border-radius:13px;outline:none}.search button{border:0;border-radius:13px;background:var(--accent);color:white;padding:0 20px;font-weight:800}
+.wrap{max-width:1180px;margin:auto;padding:0 20px 65px}.bar{display:flex;justify-content:space-between;align-items:center;margin:22px 0 18px}.bar h2{margin:0;font-size:24px}.muted{color:var(--muted);font-size:13px}
+.filters{display:flex;gap:9px;overflow:auto;padding-bottom:5px;margin-bottom:22px}.filter{white-space:nowrap;padding:9px 14px;border:1px solid var(--line);background:var(--panel);color:#cbd1df;border-radius:999px;cursor:pointer}.filter.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:linear-gradient(180deg,#131827,#0f131e);border:1px solid var(--line);border-radius:17px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-4px);border-color:#5849a0}
+.cover{height:165px;display:flex;align-items:center;justify-content:center;font-size:55px;background:linear-gradient(135deg,#2b235a,#171b2b)}.body{padding:15px}.body h3{margin:0 0 5px;font-size:17px}.body p{margin:0;color:var(--muted);font-size:13px;min-height:39px}.meta{display:flex;justify-content:space-between;color:#8992a9;font-size:11px;margin:12px 0}.btn{display:block;text-align:center;background:var(--accent);padding:11px;border-radius:10px;font-size:13px;font-weight:800}.empty{display:none;text-align:center;color:var(--muted);padding:45px}
+.ad{margin:34px 0;border:1px dashed #343b50;border-radius:14px;padding:24px;text-align:center;color:#777f94;font-size:12px}
+footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:#7e879b;font-size:12px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){nav{display:none}.grid{grid-template-columns:repeat(2,1fr)}.hero{padding-top:55px}.cover{height:135px}}@media(max-width:430px){.grid{grid-template-columns:1fr}.search button{padding:0 14px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="navin"><div class="logo">Diwa<b>Games</b>Store</div><nav><a href="#home">Home</a><a href="#games">Games</a><a href="#categories">Categories</a></nav></div></header>
+<main id="home">
+<section class="hero"><span class="pill">🎮 DIWAGAMESSTORE</span><h1>Discover Your<br><span>Next Game</span></h1><p>Browse games by category and use the official links to play or learn more.</p>
+<div class="search"><input id="q" placeholder="Search games..."><button onclick="clearSearch()">Reset</button></div></section>
+<section class="wrap" id="games">
+<div class="bar"><h2>🔥 Games</h2><span class="muted" id="count"></span></div>
+<div class="filters" id="filters"></div><div class="grid" id="grid"></div><div class="empty" id="empty">No games found.</div>
+<div class="ad">ADVERTISEMENT SPACE — replace this area with your approved ad code later.</div>
+</section>
+<section class="wrap" id="categories"><div class="bar"><h2>📂 Categories</h2></div><div class="grid" id="cats"></div></section>
+</main>
+<footer>© 2026 DiwaGamesStore · Share only games and links you are authorized to publish.</footer>
+<script>
+const games=[
+{name:"Galaxy Runner",cat:"Action",icon:"🚀",desc:"Fast-paced space action adventure.",link:"https://example.com"},
+{name:"Street Racer",cat:"Racing",icon:"🏎️",desc:"High-speed racing challenge.",link:"https://example.com"},
+{name:"Mystic Quest",cat:"Adventure",icon:"🗺️",desc:"Explore a mysterious fantasy world.",link:"https://example.com"},
+{name:"Brain Blocks",cat:"Puzzle",icon:"🧩",desc:"Relaxing puzzles for clever minds.",link:"https://example.com"},
+{name:"Super Striker",cat:"Sports",icon:"⚽",desc:"Compete and score your way to victory.",link:"https://example.com"},
+{name:"Kingdom Tactics",cat:"Strategy",icon:"♟️",desc:"Build, plan and conquer.",link:"https://example.com"},
+{name:"Zombie Night",cat:"Horror",icon:"🧟",desc:"Survive the night in a dark world.",link:"https://example.com"},
+{name:"Sky Battle",cat:"Action",icon:"✈️",desc:"Take to the skies and battle rivals.",link:"https://example.com"}
+];
+let active="All";
+const cats=["All",...new Set(games.map(g=>g.cat))];
+document.getElementById("filters").innerHTML=cats.map(c=>`<button class="filter ${c==="All"?"active":""}" onclick="setCat('${c}',this)">${c}</button>`).join("");
+function setCat(c,el){active=c;document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));el.classList.add("active");render()}
+function render(){let q=document.getElementById("q").value.toLowerCase();let list=games.filter(g=>(active==="All"||g.cat===active)&&(g.name+" "+g.cat+" "+g.desc).toLowerCase().includes(q));
+document.getElementById("grid").innerHTML=list.map(g=>`<article class="card"><div class="cover">${g.icon}</div><div class="body"><h3>${g.name}</h3><p>${g.desc}</p><div class="meta"><span>${g.cat}</span><span>🎮 GAME</span></div><a class="btn" href="${g.link}" target="_blank" rel="noopener noreferrer">Play / Visit ↗</a></div></article>`).join("");
+document.getElementById("count").textContent=list.length+" games";document.getElementById("empty").style.display=list.length?"none":"block"}
+function clearSearch(){document.getElementById("q").value="";active="All";document.querySelectorAll(".filter").forEach((x,i)=>x.classList.toggle("active",i===0));render()}
+document.getElementById("q").addEventListener("input",render);
+document.getElementById("cats").innerHTML=cats.slice(1).map(c=>`<div class="card" style="padding:24px;text-align:center;cursor:pointer" onclick="document.getElementById('q').value='';document.querySelectorAll('.filter')[${cats.indexOf(c)}].click();location.hash='games'"><div style="font-size:38px">🎯</div><h3>${c}</h3></div>`).join("");
+render();
+</script>
+</body>
+</html>
